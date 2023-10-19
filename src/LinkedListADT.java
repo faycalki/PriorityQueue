@@ -17,8 +17,10 @@ public interface LinkedListADT<T>
     
     public abstract T removeFromBack();
     
-    public abstract void addAfter(T dataInsert, T dataFind);
-    
+    //public abstract void addAfter(T dataInsert, T dataFind);
+    public abstract void addAfter(T dataInsert, Node<T> dataFind);
+
+
     public abstract void removeFirstInstance(T data);
     
     public abstract void removeAllInstances(T data);

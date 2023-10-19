@@ -1,14 +1,14 @@
 /**
-* The LLNode class is an implementation of the List ADT as a Linked List.
-* The Head is at the start of the Linked List, we use it to traverse the entire LinkedList for now.
-*
-* @author Faycal Kilali
-* @version 1.0
-* 
-*/
+ * The LLNode class is an implementation of the List ADT as a Linked List.
+ * The Head is at the start of the Linked List, we use it to traverse the entire LinkedList for now.
+ *
+ * @author Faycal Kilali
+ * @version 1.0
+ *
+ */
 public class LinkedList<T> implements ListADT<T>, LinkedListADT<T>
 {
-    private Node<T> head; // Recall that this variable actually points to the node. Possibly maybe the head node should always have an objectReference of null
+    protected Node<T> head=null; // Recall that this variable actually points to the node. Possibly maybe the head node should always have an objectReference of null
 
 
     /**
@@ -23,17 +23,18 @@ public class LinkedList<T> implements ListADT<T>, LinkedListADT<T>
     public void add(T inData) throws NullPointerException
     {
         if (inData == null){
-          throw new NullPointerException("Parameterized object is null");
+            throw new NullPointerException("Parameterized object is null");
         }
+
         if(isEmpty()){
-        Node<T> newNode = new Node<T>(inData); // New head
-        head = newNode; // So we don't need to assign this? The head isn't a separate node, the first node is always the head node.
-        //head.setNext(newNode);  
+            Node<T> newNode = new Node<T>(inData); // New head
+            head = newNode; // So we don't need to assign this? The head isn't a separate node, the first node is always the head node.
+            //head.setNext(newNode);
         }
         else{
-        Node<T> newNode = new Node<T>(inData, head);
-        head = newNode;
-        // Previous node's reference becomes the new node's reference, and the previous node's reference changes to the new code.
+            Node<T> newNode = new Node<T>(inData, head);
+            head = newNode;
+            // Previous node's reference becomes the new node's reference, and the previous node's reference changes to the new code.
         }
 
     }
@@ -46,7 +47,7 @@ public class LinkedList<T> implements ListADT<T>, LinkedListADT<T>
     @Override
     public void addToFront(T inData) throws NullPointerException
     {
-     add(inData);   
+        add(inData);
     }
 
     /**
@@ -57,7 +58,7 @@ public class LinkedList<T> implements ListADT<T>, LinkedListADT<T>
     @Override
     public void addToBack(T inData)throws NullPointerException{
         if (inData == null){
-          throw new NullPointerException("Parameterized object is null");
+            throw new NullPointerException("Parameterized object is null");
         }
         Node<T> currNode = traverseLinkedList(null);
         Node<T> insertNode = new Node(inData);
@@ -71,90 +72,106 @@ public class LinkedList<T> implements ListADT<T>, LinkedListADT<T>
      * @throws NullPointerException if inReference is null. The Exception should be caught and the method re-called with a non-null object.
      */
     @Override
-    public void addAfter(T inData, T inReference) throws NullPointerException
+    public void addAfter(T inData, Node<T> inReference) throws NullPointerException
     {
         if (inData == null){
-          throw new NullPointerException("Parameterized object is null");
+            throw new NullPointerException("Parameterized object is null");
         }
         Node<T> currNode = traverseLinkedList(inReference).getNext(); // Gets the reference before the addition of the node
-        Node<T> insertNode = new Node<T>(inData, currNode.getNext()); // Inserts the node at the approriate place 
+        Node<T> insertNode = new Node<T>(inData, currNode.getNext()); // Inserts the node at the approriate place
         currNode.setNext(insertNode); // Updates the previous node's pointer to the newly added node
     }
-    
-    
-     /**
-     * Adds a Node at a particular position
+
+
+    /**
+     * Adds a Node at a particular position from 0 to n, inclusive.
      * @param inData, inReference, inPosition
      * @throws NullPointerException if inReference is null. The Exception should be caught and the method re-called with a non-null object. IllegalArgumentException if the position is illegal.
      */
-    public void addMove(T inData, T inReference, int inPosition) throws NullPointerException, IllegalArgumentException
+    public void addToPosition(T inData, Node<T> inReference, int inPosition) throws NullPointerException, IllegalArgumentException
     {
-                    
+
         if (inPosition == 0){
             addToFront(inData);
             return;
         }
-        
+
         if (inPosition == getSize()){
             addToBack(inData);
             return;
         }
-        
-        
+
+
         if (inData == null){
-          throw new NullPointerException("Parameterized object is null");
+            throw new NullPointerException("Parameterized object is null");
         }
-        
+
         if ( (inPosition > getSize()) || (inPosition < 0) ){
             throw new IllegalArgumentException("Illegal position in Data Structure");
         }
-        
-        Node<T> currNode = traverseLinkedListToPosition(inPosition); 
+
+        Node<T> currNode = traverseLinkedListToPosition(inPosition);
         Node<T> insertNode = new Node(inData);
         if (  (currNode.getNext() != null) ){
             insertNode.setNext(currNode.getNext()); // Sets the correct reference for the move we are adding so the chain isn't broken
-            }
+        }
         currNode.setNext(insertNode); // Updates the previous move's pointer to the newly added move
     }
-    
+
 
     /**
      * Helper method to traverse a Linked List up to the node before inReference
      * @param inReference
      * @return Node, returns the node before inReference
      */
-    private Node<T> traverseLinkedList(T inReference) throws NullPointerException{
+    protected Node<T> traverseLinkedList(Node<T> inReference) throws NullPointerException{
         if (isEmpty() == true){
             throw new NullPointerException();
         }
+
+
+
         Node<T> currNode = head;
-        while (currNode.getNext() != inReference){
-            currNode = currNode.getNext();
+
+        // Check if head is null
+        if (currNode == null) {
+            System.out.println("Head is null");
+            return null;
         }
+
+        System.out.println("Initial currNode: " + currNode);
+
+        while (currNode.getNext() != null && (currNode.getNext() != inReference)){ // Adjustment: separate cases. We want to move forward by 1 if its inReference, and not move if its null.
+            System.out.println(currNode);
+            currNode = currNode.getNext();
+            // System.out.println(currNode + "here");
+        }
+        //System.out.println(head);
+        // System.out.println(currNode);
         return currNode;
     }
-    
+
     /**
      * Helper method to traverse a Linked List up to the position of inPosition inclusive (assuming the head node is at position 0, and incrementing towards more nodes). This requires that a LinkedList has at least one element in it already.
      * @Param inPosition the position starting from the head node
      * @return Node, returns the node at the inPosition'th position.
      */
-    public Node<T> traverseLinkedListToPosition(int inPosition) throws IllegalArgumentException{
-        
+    protected Node<T> traverseLinkedListToPosition(int inPosition) throws IllegalArgumentException{
+
         // No position when LL is empty
         if (isEmpty()){
             throw new IllegalStateException("Linked list is empty.");
         }
-        
+
         if ( (inPosition > getSize()) || (inPosition < 0) ){
             throw new IllegalArgumentException("Illegal position in Data Structure. Position must be positive and must be smaller than size of Data Structure. Maximal position is " + getSize() + ", received" + inPosition);
         }
-        
+
         int curPosition = 0;
         Node<T> currNode = head;
         while (currNode != null){
             if (inPosition == curPosition){
-            return currNode;
+                return currNode;
             }
             currNode = currNode.getNext();
             curPosition++;
@@ -171,13 +188,13 @@ public class LinkedList<T> implements ListADT<T>, LinkedListADT<T>
 
     @Override
     public T remove(){
-       //Node traversedListByOne = head.getNext().getNext();
-       if (isEmpty() == false){
-        Node<T> currNode = head;
-        head = head.getNext();
-        
-        // Returning the removed node's data
-        return currNode.getData();
+        //Node traversedListByOne = head.getNext().getNext();
+        if (isEmpty() == false){
+            Node<T> currNode = head;
+            head = head.getNext();
+
+            // Returning the removed node's data
+            return currNode.getData();
         }
 
         return null; // better to throw an exception instead
@@ -197,7 +214,7 @@ public class LinkedList<T> implements ListADT<T>, LinkedListADT<T>
     @Override
     public T removeFromBack(){
         Node<T> currNode = traverseLinkedList(null);
-        Node<T> prevNode = traverseLinkedList(currNode.getData());
+        Node<T> prevNode = traverseLinkedList(currNode);
         prevNode.setNext(null);
         return currNode.getData();
     }
@@ -211,7 +228,7 @@ public class LinkedList<T> implements ListADT<T>, LinkedListADT<T>
     @Override
     public void removeFirstInstance(T value) throws IllegalArgumentException{
 
- 
+
 
         boolean performedAction = false;
         Node<T> currentNode = head.getNext();
@@ -222,12 +239,12 @@ public class LinkedList<T> implements ListADT<T>, LinkedListADT<T>
             performedAction = true;
         }
         if (performedAction == false){
-          throw new IllegalArgumentException("Passed-in argument value does not exist in Linked List.");
+            throw new IllegalArgumentException("Passed-in argument value does not exist in Linked List.");
         }
         previousNode.setNext(currentNode.getNext());
     }
 
-        /**
+    /**
      * Removes all the instance of an object reference. Removes currentNode by substituting previousNode with the reference of the node after currentNode, where currentNode has the value we wish to remove.
      * @throws IllegalArgumentException if instance is not found
      */
@@ -239,18 +256,18 @@ public class LinkedList<T> implements ListADT<T>, LinkedListADT<T>
         Node<T> previousNode=head;
         boolean performedAction = false;
 
- 
+
 
         while (currentNode != null){
-        while(currentNode.getData() != value){
-            previousNode  = currentNode;
-            currentNode = currentNode.getNext();
-            performedAction = true;
-        }
-        previousNode.setNext(currentNode.getNext());
+            while(currentNode.getData() != value){
+                previousNode  = currentNode;
+                currentNode = currentNode.getNext();
+                performedAction = true;
+            }
+            previousNode.setNext(currentNode.getNext());
         }
         if (performedAction == false){
-          throw new IllegalArgumentException("Passed-in argument value does not exist in Linked List.");
+            throw new IllegalArgumentException("Passed-in argument value does not exist in Linked List.");
         }
 
 
@@ -285,11 +302,11 @@ public class LinkedList<T> implements ListADT<T>, LinkedListADT<T>
         return false;
     }
 
-        /**
-         * Method borrowed from COMP-2611 made by Ada Clevinger
-         */    
-        @Override
-        public String toString(){
+    /**
+     * Method borrowed from COMP-2611 made by Ada Clevinger
+     */
+    @Override
+    public String toString(){
         StringBuilder sb = new StringBuilder();
 
         sb.append("[");
@@ -317,8 +334,12 @@ public class LinkedList<T> implements ListADT<T>, LinkedListADT<T>
      * @return returns the Head Node
      */
     public Node<T> getHeadData(){
-            return head;
+        return head;
     }
- 
+
+
+    public void setHeadData(Node<T> inHead){
+        head = inHead;
+    }
 
 }

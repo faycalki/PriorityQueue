@@ -37,7 +37,8 @@ public interface DoublyLinkedListADT <T>
     
     public abstract T removeFromBack();
     
-    public abstract void addAfter(T dataInsert, T dataFind);
+    public abstract void addAfter(T dataInsert, Node<T> dataFind);
+    // Previous: public abstract void addAfter(T dataInsert, T dataFind);
 
     public abstract void removeFirstInstance(T data);
     
