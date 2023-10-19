@@ -6,8 +6,9 @@
 
 public class DoublyLinkedList<T> extends LinkedList<T> implements DoublyLinkedListADT<T> {
 
-    private Node<T> head;
-    private Node<T> tail;
+
+    public Node<T> tail;
+    //public Node<T> currNode;
 
     private int size = 0; // to enforce O(1)
 
@@ -31,6 +32,73 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements DoublyLinkedLi
 
 
 
+    @Override
+    public void addAfter(T inData, Node<T> inReference) throws NullPointerException{
+        if (inData == null){
+            throw new NullPointerException("Parameterized object is null");
+        }
+
+
+        if(head == null){
+            add(inData);
+            return;
+        }
+
+        /*
+
+
+        else if(getHeadData().getNext() == inReference){
+            currNode = getHeadData();
+            Node<T> newNode = new Node(inData, getHeadData().getNext());
+            newNode.getNext().setPrevReference(newNode);
+            getHeadData().setNext(newNode);
+            newNode.setPrevReference(getHeadData());
+            return;
+        }
+        */
+
+        //System.out.println(getHeadData());
+        //System.out.println("1");
+
+        //currNode = traverseLinkedList(inReference).getNext(); // Gets the reference before the addition of the node
+        Node<T> insertNode = new Node<T>(inData);
+        Node<T> currNode = traverseLinkedList(inReference); // Acquires the reference of the node before inReference node or before null
+
+        // There are two cases. One where we are bounded by inReference, in which case the following applies. One where we are bounded by Null
+        // but not by inReference, in which case, we add to the end of the list.
+
+        // Case where we are bounded by inReference
+        if (currNode.getNext() != null){
+            currNode = currNode.getNext(); // now our node is at position inReference.
+        }
+
+        // Check if position after inReference exists or is null
+        if (currNode.getNext() != null)
+        {
+            insertNode.setNext(currNode.getNext());
+            insertNode.setData(inData);
+        }
+        else{
+            // Case where there is a null after after currNode
+            insertNode.setData(inData);
+        }
+
+        currNode.setNext(insertNode); // Updates the previous node's pointer to the newly added node
+
+
+
+        // Additions
+        insertNode.setPrevReference(currNode);
+
+        if ((insertNode.getNext()) != null){
+            insertNode.getNext().setPrevReference(insertNode);
+        }
     }
+
+
+
+
+
+}
 
 

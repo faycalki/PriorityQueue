@@ -1,26 +1,26 @@
 /**
  * This Node class is made for double-linked lists. However, it can also be used for single-linked lists.
  * @implNote We've opted not to extend the Node class, as a lot of the code in LinkedList uses type Node<T>.
-  If we extend to say, DLLNode, we'll have to rewrite almost the entire code-base of LinkedList rather than merely extend it.
+If we extend to say, DLLNode, we'll have to rewrite almost the entire code-base of LinkedList rather than merely extend it.
  * @param <T>, any generic object is acceptable.
  */
 
 public class Node<T>{
-    private T data; // Node's reference to its inner data
-    private Node<T> reference; // Reference to the next node
+        private T data; // Node's reference to its inner data
+        private Node<T> reference; // Reference to the next node
 
         private Node<T> prevReference; // pointer to the preceding node in the chain
 
 
-    /**
- * Constructor for objects of class Node with null reference
- * @param inData the reference of the object that the Node's data will hold as a pointer.
- */
-public Node(T inData)
+        /**
+         * Constructor for objects of class Node with null reference
+         * @param inData the reference of the object that the Node's data will hold as a pointer.
+         */
+        public Node(T inData)
         {
-        data = inData;
-        reference = null;
-        prevReference = null;
+                data = inData;
+                reference = null;
+                prevReference = null;
         }
 
         /**
@@ -36,33 +36,33 @@ public Node(T inData)
         }
 
 
-/**
- * Constructor for objects of class Node, for Doubly-Linked Lists
- * @param inData the object to direct the pointer to
- * @param inReference the next node to direct the pointer to in the chain of nodes
- * @param inPrevReference the previous node to direct the pointer to in the chain of nodes
- */
-public Node(T inData, Node<T> inReference, Node<T> inPrevReference)
+        /**
+         * Constructor for objects of class Node, for Doubly-Linked Lists
+         * @param inData the object to direct the pointer to
+         * @param inReference the next node to direct the pointer to in the chain of nodes
+         * @param inPrevReference the previous node to direct the pointer to in the chain of nodes
+         */
+        public Node(T inData, Node<T> inReference, Node<T> inPrevReference)
         {
-        data = inData;
-        reference = inReference;
-        prevReference = inPrevReference;
+                data = inData;
+                reference = inReference;
+                prevReference = inPrevReference;
         }
 
-public Node<T> getNext(){
-        return reference;
+        public Node<T> getNext(){
+                return reference;
         }
 
-protected void setNext(Node<T> node){
-        reference = node;
+        public void setNext(Node<T> node){
+                reference = node;
         }
 
-public T getData(){
-        return data;
+        public T getData(){
+                return data;
         }
 
-private void setData(T inData){
-        data = inData;
+        public void setData(T inData){
+                data = inData;
         }
 
 
@@ -86,4 +86,4 @@ private void setData(T inData){
                 prevReference = previous;
         }
 
-        }
+}
