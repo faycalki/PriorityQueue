@@ -1,17 +1,17 @@
 /**
+ *
+ * @implSpec Doubly Linked List Implementation by extending a Linked List
+ * @implNote This Implementation attempts to minimize overriding the methods of Linked List.
  * @author Faycal Kilali, Dylan Kim
  * @version 1.1
  * @param <T>, a generic parameter type.
  */
 
-public class DoublyLinkedList<T> extends LinkedList<T> implements DoublyLinkedListADT<T> {
+public class DoublyLinkedList<T> extends SinglyLinkedList<T> implements ListADT<T>, LinkedListADT<T>, DoublyLinkedListADT<T> {
 
 
-    public Node<T> tail;
+    //public Node<T> tail;
     //public Node<T> currNode;
-
-    private int size = 0; // to enforce O(1)
-
 
     public DoublyLinkedList() {
         head = null;
@@ -33,63 +33,49 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements DoublyLinkedLi
 
 
     @Override
-    public void addAfter(T inData, Node<T> inReference) throws NullPointerException{
+    /**
+     * Adds a Node after dataFind Node. Does so by comparing the object value inside dataFind.
+     * @param inData the data we'll use to create a new Node
+     * @param dataFind the node that we'll add after that already exists in the Linked List
+     * @throws NullPointerException
+     */
+    public void addAfter(T inData, T dataFind) throws NullPointerException{
         if (inData == null){
             throw new NullPointerException("Parameterized object is null");
         }
 
-
+        // Case where the Linked List is empty
         if(head == null){
             add(inData);
             return;
         }
 
-        /*
-
-
-        else if(getHeadData().getNext() == inReference){
-            currNode = getHeadData();
-            Node<T> newNode = new Node(inData, getHeadData().getNext());
-            newNode.getNext().setPrevReference(newNode);
-            getHeadData().setNext(newNode);
-            newNode.setPrevReference(getHeadData());
-            return;
-        }
-        */
-
-        //System.out.println(getHeadData());
-        //System.out.println("1");
-
-        //currNode = traverseLinkedList(inReference).getNext(); // Gets the reference before the addition of the node
         Node<T> insertNode = new Node<T>(inData);
-        Node<T> currNode = traverseLinkedList(inReference); // Acquires the reference of the node before inReference node or before null
+        Node<T> currNode = traverseLinkedList(dataFind); // Acquire Node at dataFind (or the Node right before it if dataFind can't be found)
+        // There are two cases. One where we are bounded by dataFind, in which case the following applies. One where we are bounded by Null
+        // but not by dataFind, in which case, we add to the end of the list.
+        //System.out.println(currNode.getData());
 
-        // There are two cases. One where we are bounded by inReference, in which case the following applies. One where we are bounded by Null
-        // but not by inReference, in which case, we add to the end of the list.
-
-        // Case where we are bounded by inReference
+        // Case where we are bounded by dataFind
         if (currNode.getNext() != null){
-            currNode = currNode.getNext(); // now our node is at position inReference.
-        }
-
-        // Check if position after inReference exists or is null
-        if (currNode.getNext() != null)
-        {
             insertNode.setNext(currNode.getNext());
-            insertNode.setData(inData);
-        }
-        else{
-            // Case where there is a null after after currNode
-            insertNode.setData(inData);
+            // Check if position after dataFind exists or is null
+            //if (currNode.getNext().getNext() != null)
+            //{
+            //    insertNode.setNext(currNode.getNext().getNext());
+            //}
+            //else{
+            // Case where there is a null after currNode
+            //}
         }
 
         currNode.setNext(insertNode); // Updates the previous node's pointer to the newly added node
 
-
+        //System.out.println(currNode.getData());
+        //System.out.println(insertNode.getData());
 
         // Additions
         insertNode.setPrevReference(currNode);
-
         if ((insertNode.getNext()) != null){
             insertNode.getNext().setPrevReference(insertNode);
         }
@@ -99,6 +85,71 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements DoublyLinkedLi
 
 
 
+
+
+
+    /**
+     * Adds a new node with the specified data to the back of the linked list.
+     * @implSpec this can be lowered to O(1) if the tail is tracked appropriately in LinkedList
+     * @param data The data to add to the back of the linked list.
+     */
+    @Override
+    public void addToBack(T data) {
+        super.addToBack(data); // O(n) unless tail is tracked appropriately
+
+
+    }
+
+    /**
+     * Removes and returns the data from the node at the front of the linked list.
+     *
+     * @return T The data from the front of the linked list.
+     */
+    @Override
+    public T removeFromFront() {
+        super.getHeadData().getNext().setPrevReference(null); // Gets the second Node then sets its previous reference to null
+        return super.removeFromFront(); // Removes the first Node (the head Node) and sets the second Node as the new head Node. Returns the removed Node.
+    }
+
+    /**
+     * Removes and returns the data from the node at the back of the linked list.
+     *
+     * @return T The data from the back of the linked list.
+     */
+    public T removeFromBack() {
+        return super.removeFromBack();
+    }
+
+
+    /**
+     * Removes the first instance of the specified data from the linked list.
+     *
+     * @param data The data to remove from the linked list.
+     */
+
+    public void removeFirstInstance(T data) {
+        super.removeFirstInstance(data);
+    }
+
+    /**
+     * Removes all instances of the specified data from the linked list.
+     *
+     * @param data The data to remove from the linked list.
+     */
+    @Override
+    public void removeAllInstances(T data) {
+        super.removeAllInstances(data);
+    }
+
+    /**
+     * Returns a string representation of the linked list.
+     *
+     * @return String A string representation of the linked list.
+     */
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
 
 

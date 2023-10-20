@@ -13,20 +13,23 @@
  * as part of showing your competency with working with a
  * doubly linked list.
  *
- * @author Ada Clevinger
- * @version Oct 13, 2023
+ * @implSpec minor edits to the ADT performed
+ *
+ * @author Ada Clevinger, Faycal Kilali
+ * @version Oct 18, 2023
  */
 public interface DoublyLinkedListADT <T>
 {
     
-    /*
+    /**
      * Method to check what object of type T is stored at the given
      * position; does not remove the Node at this position.
      *
      * Should throw an exception if the position given is an illegal index
      * for the LinkedList.
+     * @param position the position to check the data of
+     * @return T the data at that position
      */
-
     public abstract T checkDataAtLocation(int position);
     
     public abstract void addToFront(T data);
@@ -37,7 +40,7 @@ public interface DoublyLinkedListADT <T>
     
     public abstract T removeFromBack();
     
-    public abstract void addAfter(T dataInsert, Node<T> dataFind);
+    public abstract void addAfter(T dataInsert, T dataFind);
     // Previous: public abstract void addAfter(T dataInsert, T dataFind);
 
     public abstract void removeFirstInstance(T data);

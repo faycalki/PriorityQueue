@@ -29,7 +29,7 @@ public class ListADTTest
     @BeforeEach
     public void setUp()
     {
-        list = new LinkedList<String>();
+        list = new SinglyLinkedList<String>();
     }
 
     

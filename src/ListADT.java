@@ -9,11 +9,10 @@
 
 public interface ListADT<T>{
 
-
     /**
      * Adds an element of type T to the front of the list. 
      * We assume no restrictions on the potential size of the list.
-     * @param object of type T.
+     * @param data of type T
      */
 public void add(T data);
 
@@ -26,13 +25,13 @@ public T remove();
 
 /**
  * Method that retrieves the number of items in the list for the ADT implementation
- * @return int, size of list
+ * @return size of list
  */
 public int getSize();
 
 /**
  * Method that retrieves whether the list is empty (0) or not for the ADT implementation
- * @return boolean, whether the list is empty or not
+ * @return whether the list is empty or not
  */
 public boolean isEmpty();
 

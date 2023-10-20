@@ -1,86 +1,99 @@
 
-
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
+
 /**
- * Scaffold test class for implementations of the LinkedListADT interface.
+ * Test class for implementations of the LinkedListADT interface.
  *
- * @author Ada Clevinger
- * @version Sep 29, 2023
+ * @author Faycal Kilali
+ * @version 1.0
  */
-public class LinkedListADTTest
-{
-    
-    private LinkedListADT<String> list;
-    
-    public LinkedListADTTest()
-    {
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class LinkedListADTTest {
+
+    private SinglyLinkedList<String> list;
+
+    @BeforeEach
+    public void setUp() {
+        list = new SinglyLinkedList<>();
     }
 
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     * 
-     * Note that initially this will cause an error; why is this?
-     * How do we 'fix' the error?
-     */
-    @BeforeEach
-    public void setUp()
-    {
-        list = new LinkedList<String>();
-    }
-    
     @Test
-    public void testAddToFront(){
-        
+    public void testAddToFront() {
+        list.addToFront("A");
+        assertEquals("[A]", list.toString());
+        list.addToFront("B");
+        assertEquals("[B, A]", list.toString());
     }
-    
+
     @Test
-    public void testAddToBack(){
-        
+    public void testAddToBack() {
+        list.addToBack("A");
+        assertEquals("[A]", list.toString());
+        list.addToBack("B");
+        assertEquals("[A, B]", list.toString());
     }
-        
+
     @Test
-    public void testRemoveFromFront(){
-        
+    public void testAddAfter() {
+        list.addToBack("A");
+        list.addToBack("B");
+        list.addAfter("C", "A");
+        assertEquals("[A, C, B]", list.toString());
     }
-        
+
+
+
     @Test
-    public void testRemoveFromBack(){
-        
+    public void testRemoveFromFront() {
+        list.addToBack("A");
+        list.addToBack("B");
+        assertEquals("A", list.removeFromFront());
+        assertEquals("[B]", list.toString());
     }
-               
+
     @Test
-    public void testAddAfter(){
-        
+    public void testRemoveFromBack() {
+        list.addToBack("A");
+        list.addToBack("B");
+        assertEquals("B", list.removeFromBack());
+        assertEquals("[A]", list.toString());
     }
-                 
+
     @Test
-    public void testRemoveFirstInstance(){
-        
+    public void testRemoveFirstInstance() {
+        list.addToBack("A");
+        list.addToBack("B");
+        list.addToBack("A");
+        list.removeFirstInstance("A");
+        assertEquals("[B, A]", list.toString());
     }
-                
+
     @Test
-    public void testRemoveAllInstances(){
-        
+    public void testRemoveAllInstances() {
+        list.addToBack("A");
+        list.addToBack("B");
+        list.addToBack("A");
+        list.removeAllInstances("A");
+        assertEquals("[B]", list.toString());
     }
-                
+
+
     @Test
-    public void testToString(){
-        
+    public void testToString() {
+        list.addToBack("A");
+        list.addToBack("B");
+        assertEquals("[A, B]", list.toString());
     }
-        
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
-    @AfterEach
-    public void tearDown()
-    {
-    }
+
 }
+
+

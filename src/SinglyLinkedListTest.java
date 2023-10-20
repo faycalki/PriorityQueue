@@ -2,18 +2,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Test class for DoublyLinkedList
- * @author Faycal Kilali
- * @version 1.0
- */
-class DoublyLinkedListTest {
+class SinglyLinkedListTest {
 
-    private DoublyLinkedList<String> list;
+    private SinglyLinkedList<String> list;
 
     @BeforeEach
     void setUp() {
-        list = new DoublyLinkedList<>();
+        list = new SinglyLinkedList<>();
     }
 
     @Test
@@ -49,7 +44,15 @@ class DoublyLinkedListTest {
     }
 
     @Test
-    void remove() {
+    void addToPosition() {
+        list.addToBack("A");
+        list.addToBack("B");
+        list.addToPosition("C", 1);
+        assertEquals("[A, C, B]", list.toString());
+    }
+
+    @Test
+    public void testRemove() {
         list.addToBack("A");
         list.addToBack("B");
         assertEquals("B", list.removeFromBack());
@@ -57,14 +60,14 @@ class DoublyLinkedListTest {
     }
 
     @Test
-    void getSize() {
+    public void testGetSize() {
         list.addToBack("A");
         list.addToBack("B");
         assertEquals(2, list.getSize());
     }
 
     @Test
-    void isEmpty() {
+    public void testIsEmpty() {
         assertTrue(list.isEmpty());
         list.addToBack("A");
         assertFalse(list.isEmpty());
@@ -87,6 +90,30 @@ class DoublyLinkedListTest {
     }
 
     @Test
+    void remove() {
+        list.addToBack("A");
+        list.addToBack("B");
+        assertEquals("A", list.remove());
+        assertEquals("[B]", list.toString());
+    }
+
+    @Test
+    void removeFromFront() {
+        list.addToBack("A");
+        list.addToBack("B");
+        assertEquals("A", list.removeFromFront());
+        assertEquals("[B]", list.toString());
+    }
+
+    @Test
+    void removeFromBack() {
+        list.addToBack("A");
+        list.addToBack("B");
+        assertEquals("B", list.removeFromBack());
+        assertEquals("[A]", list.toString());
+    }
+
+    @Test
     void removeFirstInstance() {
         list.addToBack("A");
         list.addToBack("B");
@@ -102,6 +129,20 @@ class DoublyLinkedListTest {
         list.addToBack("A");
         list.removeAllInstances("A");
         assertEquals("[B]", list.toString());
+    }
+
+    @Test
+    void getSize() {
+        list.addToBack("A");
+        list.addToBack("B");
+        assertEquals(2, list.getSize());
+    }
+
+    @Test
+    void isEmpty() {
+        assertTrue(list.isEmpty());
+        list.addToBack("A");
+        assertFalse(list.isEmpty());
     }
 
     @Test
@@ -122,13 +163,5 @@ class DoublyLinkedListTest {
         Node<String> newNode = new Node<>("C");
         list.setHeadData(newNode);
         assertEquals(newNode, list.getHeadData());
-    }
-
-    @Test
-    void checkDataAtLocation() {
-        list.addToBack("A");
-        list.addToBack("B");
-        assertEquals("A", list.checkDataAtLocation(0));
-        assertEquals("B", list.checkDataAtLocation(1));
     }
 }
