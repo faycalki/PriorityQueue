@@ -5,7 +5,7 @@
  * so that the 'isMoreImportant' method can compare objects
  * of type PriorityString to other objects of the same type.
  * 
- * Note that this lexographical ordering is only one way to implement
+ * Note that this lexicographical ordering is only one way to implement
  * priority logic; we could also have a custom class that directly
  * takes an integer value that is its priority, or incorporate a
  * means of measuring time of entry to the PriorityQueue.
@@ -26,12 +26,20 @@ public class PriorityString implements Priority<PriorityString>
      * Method that implements the abstract method 'isMoreImportant'
      * with the chosen generic type this class defines to be PriorityString.
      * 
-     * Method of deciding important is lexocographical ordering.
+     * The method of deciding importance is through lexicographical ordering.
      * 
      * Would be easier to call value.compareTo(otherString)
      * but it doesn't hurt to know the granular way that
      * we would compare an object such as a String.
      * 
+     */
+
+    /**
+     * Essentially, this method compares each character at the same lengths of the two Strings. If our String has a higher value in terms of Unicode, then we return true (that String would be of higher importance), otherwise false.
+     * Note that we care about the earliest such case in the Strings where one of the characters has a higher value.
+     * If all the characters of same length are the same, then the string with more length will be more important.
+     * @param other
+     * @return true if our String has a higher value, false otherwise.
      */
     
     public boolean isMoreImportant(PriorityString other){
@@ -69,12 +77,6 @@ public class PriorityString implements Priority<PriorityString>
      * 
      */
     
-    public void testThisClass(){
-        PriorityString test = new PriorityString("apple");
-        System.out.println(test.isMoreImportant(new PriorityString("banana")));
-        System.out.println(test.isMoreImportant(new PriorityString("acid")));
-        System.out.println(test.isMoreImportant(new PriorityString("apples")));
-        
-    }
+
     
 }

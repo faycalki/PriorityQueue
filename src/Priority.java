@@ -19,19 +19,20 @@
  * PriorityString would be a wrapper class around a String value that
  * provides this additional Priority functionality.
  * 
- * @author Ada Clevinger
+ * @author Ada Clevinger, Faycal Kilali
  * @version Oct 13, 2023
  */
 public interface Priority<T>
 {
     
-    /*
-     * Method to decide if the object of the class that
-     * implements the Priority interface has a higher or
-     * lower priority than the given object of type T.
-     * 
+
+    /**
+     * This is a method to decide if the object of the class that implements the Priority interface has a higher or lower
+     * priority than the provided object of type T.
+     * As this is an abstract method, we get to dictate how we wish to determine which element is more important.
+     * @param other the other element to compare with
+     * @return whether the element is more important than the other element
      */
-    
     public abstract boolean isMoreImportant(T other);
     
 }

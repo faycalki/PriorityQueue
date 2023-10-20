@@ -6,7 +6,7 @@
 
 public class Queue<T> implements QueueADT<T>, QueuePlusADT<T> {
 
-    SinglyLinkedList<T> list;
+    private SinglyLinkedList<T> list;
     private int MAX_CAPACITY = 10 * 1000; // for testing purposes. If using an array, this should be array.length instead.
 
     /**
@@ -87,4 +87,23 @@ public class Queue<T> implements QueueADT<T>, QueuePlusADT<T> {
     public int getMaxCapacity(){
         return MAX_CAPACITY;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder("Queue: [");
+        Node<T> current = list.getHeadData();
+
+        while (current != null) {
+            result.append(current.getData());
+            if (current.getNext() != null) {
+                result.append(", ");
+            }
+            current = current.getNext();
+        }
+
+        result.append("]");
+        return result.toString();
+    }
+
+
 }

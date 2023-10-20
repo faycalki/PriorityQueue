@@ -140,4 +140,15 @@ class QueueTest {
         assertThrows(InsufficientSizeException.class, () -> queue.changeSize(queue.getMaxCapacity() - 1));
     }
 
+    @Test
+    void testToString() throws QueueOverflowException {
+        // Enqueue elements to the queue
+        queue.enqueue("A");
+        queue.enqueue("B");
+        queue.enqueue("C");
+
+        // Check the string representation
+        assertEquals("Queue: [A, B, C]", queue.toString());
+    }
+
 }

@@ -12,9 +12,9 @@
 public interface PriorityQueueADT <T extends Priority>
 {
     
-    public abstract void enqueue(T element) throws PriQueueOverflowException;
+    public abstract void enqueue(T element) throws QueueOverflowException;
     
-    public abstract T dequeue() throws PriQueueUnderflowException;
+    public abstract T dequeue() throws QueueUnderflowException;
     
     public abstract boolean isFull();
     
@@ -22,8 +22,6 @@ public interface PriorityQueueADT <T extends Priority>
     
     public abstract int size();
     
-    class PriQueueOverflowException extends Exception { }
-    
-    class PriQueueUnderflowException extends Exception { }
+
     
 }
