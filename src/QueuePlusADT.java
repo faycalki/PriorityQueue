@@ -58,5 +58,4 @@ public interface QueuePlusADT<T>
     public abstract void changeSize(int newMaxSize) throws InsufficientSizeException;
     
     
-    class InsufficientSizeException extends Exception { }
 }

@@ -87,22 +87,45 @@ class DoublyLinkedListTest {
     }
 
     @Test
-    void removeFirstInstance() {
+    void testRemoveFirstInstance() {
         list.addToBack("A");
         list.addToBack("B");
         list.addToBack("A");
+        list.addToBack("C");
+
+        assertEquals("[A, B, A, C]", list.toString());
+
         list.removeFirstInstance("A");
-        assertEquals("[B, A]", list.toString());
+
+        assertEquals("[B, A, C]", list.toString());
+        assertEquals("B", list.getHeadData().getData());
+        assertEquals("C", list.getHeadData().getNext().getNext().getData());
+
+        // Check backward links
+        assertNull(list.getHeadData().getPrevReference());
+        assertEquals("B", list.getHeadData().getNext().getPrevReference().getData());
+        assertEquals("A", list.getHeadData().getNext().getNext().getPrevReference().getData());
     }
 
     @Test
-    void removeAllInstances() {
+    void testRemoveAllInstances() {
         list.addToBack("A");
         list.addToBack("B");
         list.addToBack("A");
+        list.addToBack("C");
+
+        assertEquals("[A, B, A, C]", list.toString());
+
         list.removeAllInstances("A");
-        assertEquals("[B]", list.toString());
+
+        assertEquals("[B, C]", list.toString());
+        assertEquals("B", list.getHeadData().getData());
+
+        // Check backward links
+        assertNull(list.getHeadData().getPrevReference());
+        assertEquals("B", list.getHeadData().getNext().getPrevReference().getData());
     }
+
 
     @Test
     void testToString() {

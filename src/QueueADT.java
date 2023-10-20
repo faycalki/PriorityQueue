@@ -23,8 +23,6 @@ public interface QueueADT <T>
     
     public abstract int size();
     
-    class QueueOverflowException extends Exception { }
-    
-    class QueueUnderflowException extends Exception { }
+
     
 }
